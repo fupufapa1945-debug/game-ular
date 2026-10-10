@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Ular Retro Neon & Panduan APK</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Hubungkan file CSS terpisah -->
+    <link rel="stylesheet" href="ular.CSS">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-4 selection:bg-blue-500 selection:text-white">
+
+    <header class="w-full max-w-md text-center py-3">
+        <h1 class="retro-font text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 tracking-wider">
+            SNAKE NEON
+        </h1>
+        <p class="text-xs text-gray-400 mt-1">Game Web & Panduan Ubah ke APK</p>
+    </header>
+
+    <main class="w-full max-w-md flex flex-col items-center my-auto">
+        <!-- Scoreboard -->
+        <div class="w-full flex justify-between items-center bg-gray-900/80 border border-gray-800 p-3 rounded-xl mb-3 shadow-inner">
+            <div class="text-center">
+                <span class="text-[10px] uppercase text-gray-400 block">Skor</span>
+                <span id="score" class="retro-font text-emerald-400 text-sm">0</span>
+            </div>
+            <div class="text-center">
+                <span class="text-[10px] uppercase text-gray-400 block">Skor Tertinggi</span>
+                <span id="highScore" class="retro-font text-cyan-400 text-sm">0</span>
+            </div>
+        </div>
+
+        <!-- Canvas Game Area -->
+        <div class="relative rounded-2xl overflow-hidden border-2 border-gray-800">
+            <canvas id="gameCanvas" width="360" height="360" class="block w-full max-w-[360px] aspect-square"></canvas>
+            
+            <!-- Overlay untuk Start / Pause / Game Over -->
+            <div id="gameOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center transition-all duration-300">
+                <h2 id="overlayTitle" class="retro-font text-lg text-emerald-400 mb-2">SNAKE GAME</h2>
+                <p id="overlayDesc" class="text-xs text-gray-300 mb-6 leading-relaxed">Gunakan tombol arah di bawah atau keyboard untuk bermain.</p>
+                <button id="startBtn" class="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-gray-950 font-bold retro-font text-xs py-3 px-6 rounded-xl shadow-lg transition-transform active:scale-95">
+                    MULAI GAME
+                </button>
+            </div>
+        </div>
+
+        <!-- Touch Controls (Mobile Friendly) -->
+        <div class="w-full mt-4 flex flex-col items-center gap-1">
+            <button id="upBtn" class="w-16 h-12 bg-gray-800 hover:bg-gray-700 active:bg-blue-600 text-white rounded-xl shadow border border-gray-700 flex items-center justify-center text-lg font-bold">▲</button>
+            <div class="flex gap-16">
+                <button id="leftBtn" class="w-16 h-12 bg-gray-800 hover:bg-gray-700 active:bg-blue-600 text-white rounded-xl shadow border border-gray-700 flex items-center justify-center text-lg font-bold">◀</button>
+                <button id="rightBtn" class="w-16 h-12 bg-gray-800 hover:bg-gray-700 active:bg-blue-600 text-white rounded-xl shadow border border-gray-700 flex items-center justify-center text-lg font-bold">▶</button>
+            </div>
+            <button id="downBtn" class="w-16 h-12 bg-gray-800 hover:bg-gray-700 active:bg-blue-600 text-white rounded-xl shadow border border-gray-700 flex items-center justify-center text-lg font-bold">▼</button>
+        </div>
+
+        <!-- Tombol Buka Panduan APK -->
+        <button id="openGuideBtn" class="w-full mt-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-cyan-400 font-semibold text-xs py-2.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2">
+            <span>📱</span> Cara Ubah Game Ini Jadi APK Android
+        </button>
+    </main>
+
+    <!-- Modal Panduan APK -->
+    <div id="guideModal" class="fixed inset-0 bg-black/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-md p-5 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="retro-font text-xs text-cyan-400">PANDUAN JADI APK</h3>
+                <button id="closeGuideBtn" class="text-gray-400 hover:text-white text-lg font-bold px-2">&times;</button>
+            </div>
+            <div class="space-y-3 text-xs text-gray-300 leading-relaxed">
+                <p>Game ini dibuat murni dengan <strong>HTML, CSS, dan JavaScript</strong>. Kamu bisa menjadikannya aplikasi Android (APK) menggunakan metode <strong>PWA Builder</strong>:</p>
+                
+                <div class="bg-gray-950 p-3 rounded-xl border border-gray-800">
+                    <span class="font-bold text-emerald-400 block mb-1">Langkah 1: Upload ke Hosting Web</span>
+                    <p class="text-gray-400">Simpan file-file ini (<code class="text-cyan-300">index.html</code>, <code class="text-cyan-300">style.css</code>, <code class="text-cyan-300">script.js</code>) ke web hosting publik seperti GitHub Pages, Netlify, atau Vercel.</p>
+                </div>
+
+                <div class="bg-gray-950 p-3 rounded-xl border border-gray-800">
+                    <span class="font-bold text-emerald-400 block mb-1">Langkah 2: Buka PWABuilder</span>
+                    <p class="text-gray-400">Buka situs <a href="https://www.pwabuilder.com" target="_blank" class="text-blue-400 underline">pwabuilder.com</a> di browser.</p>
+                </div>
+
+                <div class="bg-gray-950 p-3 rounded-xl border border-gray-800">
+                    <span class="font-bold text-emerald-400 block mb-1">Langkah 3: Masukkan Link & Generate</span>
+                    <p class="text-gray-400">Masukkan URL link website game kamu, lalu klik <strong>"Start"</strong> dan pilih <strong>"Generate"</strong> pada bagian Android.</p>
+                </div>
+            </div>
+            <button id="closeGuideBtnBottom" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition-colors">
+                Mengerti & Kembali Bermain
+            </button>
+        </div>
+    </div>
+
+    <footer class="w-full max-w-md text-center py-2 text-[10px] text-gray-500">
+        Dibuat interaktif dengan HTML5 Canvas & Tailwind CSS
+    </footer>
+
+    <!-- Hubungkan file JavaScript terpisah -->
+    <script src="ular.JS"></script>
+</body>
+</html>
